@@ -25,15 +25,16 @@ const cardsMarkup = createGalleryCards(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 
 
-galleryContainer.addEventListener('click', onItemClick);
+galleryContainer.addEventListener('click', handleItemClick);
 
-function onItemClick(evt) {
+function handleItemClick(evt) {
     evt.preventDefault();
   
     if (!evt.target.classList.contains("gallery__image")) {
       return;
     } else {
       const srcEl = evt.target.dataset.source;
+
       const instance = basicLightbox.create(
         `
       <img src="${srcEl}">
@@ -43,11 +44,10 @@ function onItemClick(evt) {
 
       const onModalEl = document.querySelector(".basicLightbox");  
       onModalEl.addEventListener("click", onModalClose);
-      window.addEventListener("keydown", onEscKeyPress);
+      document.addEventListener("keydown", onEscKeyPress);
   
 
       function onModalClose() {
-        // window.removeEventListener("keydown", onEscKeyPress);
         instance.close();
       }
         
@@ -58,11 +58,10 @@ function onItemClick(evt) {
 
         if (isEscKey) {
           instance.close();
-          // window.removeEventListener("keydown", onEscKeyPress);
         }
       }
     }
   }
   
+  console.log(galleryItems);
 
-console.log(galleryItems);
